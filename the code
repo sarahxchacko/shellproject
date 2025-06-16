@@ -2,11 +2,12 @@
 //main
 
 //the while loop 
-  //gets input from user
+  //display prompt 
+  //gets input from user using fgets()
   //reads input 
   //check if exit command 
     //if exit... 
-    //else store/execute command using fgets() 
+    //else store/execute
         //parsing input via tokens
 
 //the built-in exit commands: 
