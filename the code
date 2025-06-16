@@ -6,6 +6,7 @@
 
 #define MAX_LINE[1024];
 #define MAX_ARGS[11];
+#define BUFF_SIZE 1024;
 
 
 int main() {
@@ -17,6 +18,25 @@ while(1){            //the while loop
 
 
   //gets input from user using fgets()
+char * read_line(void) {
+  int position = 0;
+  char * buffer = malloc(sizeof(char) * BUFF_SIZE);
+  int num;
+
+  //If buffer is exceeded, throw error
+  if(!buffer){
+    fprintf(stderr, "ProjSH: allocation error\n");
+    exit(EXIT_FAILURE);
+
+  //If buffer is not empty, trim the buffer to remove the newline
+  
+  //If buffer is empty, return null
+  if(fgets(buffer, BUFF_SIZE, stdin)==NULL){ free(buffer); return NULL;}
+
+  return buffer;
+}
+
+
   //reads input 
   //check if exit command 
     //if exit... 
