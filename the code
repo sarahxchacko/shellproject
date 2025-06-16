@@ -7,7 +7,7 @@
 //main
 
 //the while loop 
-  //display prompt 
+  //display prompt "ProjSh$ " 
   //gets input from user using fgets()
   //reads input 
   //check if exit command 
