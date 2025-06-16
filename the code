@@ -1,14 +1,21 @@
-#include <stdio.h> 
-#include <stdlib.h>
-#include <string.h> 
-#include <unistd.h>
-#include <sys/wait.h> 
+#include<stdio.h> 
+#include<stdlib.h>
+#include<string.h> 
+#include<unistd.h>
+#include<sys/wait.h> 
+
+#define MAX_LINE[1024];
+#define MAX_ARGS[11];
 
 
-//main
+int main() {
+  char line[MAX_LINE];    //holds input
+  char *args[MAX_ARGS];    //array for arg pointers
 
-//the while loop 
-  //display prompt "ProjSh$ " 
+while(1){            //the while loop 
+    printf("ProjSh$ ");   //display prompt
+
+
   //gets input from user using fgets()
   //reads input 
   //check if exit command 
@@ -23,3 +30,6 @@
 //for external commands use fork()
   //in the child run the commands 
 //the parent wait()
+
+return 0;
+} 
