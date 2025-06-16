@@ -45,7 +45,7 @@ char * read_line(void) {
 
   //If buffer is exceeded, throw error
   if(!buffer){
-    fprintf(stderr, "ProjSH: allocation error\n");
+    fprintf(stderr, "shpj: allocation error\n");
     exit(EXIT_FAILURE);
 
   //If buffer is not empty, trim the buffer to remove the newline
