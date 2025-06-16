@@ -4,17 +4,32 @@
 #include<unistd.h>
 #include<sys/wait.h> 
 
-#define MAX_LINE[1024];
-#define MAX_ARGS[11];
+#define MAX_LINE 1024     //max length
+#define MAX_ARGS 11      //max num of space-separated tokens
+#define TOKEN_SZE 80    //token size no > 80
+
+//shpj = shell project (tehe) 
+
+
+void shpj_loop(void);
 
 
 int main() {
-  char line[MAX_LINE];    //holds input
-  char *args[MAX_ARGS];    //array for arg pointers
+  shpj_loop();
+  return EXIT_SUCCESS;
+}
 
-while(1){            //the while loop 
-    printf("ProjSh$ ");   //display prompt
+void shpj_loop(void) {
+  char line[MAX_LINE];
+  char *args[MAX_ARGS];
 
+  while(1) {
+    printf("ProjSh$ ");
+     // fgets statements
+
+  }
+
+}
 
   //gets input from user using fgets()
   //reads input 
@@ -31,5 +46,3 @@ while(1){            //the while loop
   //in the child run the commands 
 //the parent wait()
 
-return 0;
-} 
