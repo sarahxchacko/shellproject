@@ -4,15 +4,39 @@
 
 //main
 
-//the while loop 
+char * read_in() {
+  
+  int sizeOfBuff = 500;
+  int position = 0;
+  char * buffer = malloc(sizeof(char) * sizeOfBuff);
+  int n;
+
+  if (!buffer) {
+    fprintf(stderr, "%sdash: Allocation error%s\n", RED, RESET);
+    exit(EXIT_FAILURE);
+  }
+
+//the infinite while loop 
+while(1){
   //display prompt "ProjSh$ " 
+  printf("ProjSh$ ");
+
   //gets input from user using fgets()
+//If no input
+  if (fgets(userInput, sizeOf(userInput), stdin) == NULL){
+    // line break
+    printf("\n");
+
+    //exit block
+    break; }
+  
   //reads input 
   //check if exit command 
     //if exit... 
     //else store/execute
         //parsing input via tokens
 
+}
 //the built-in exit commands: 
   //exit 
   //cd 
