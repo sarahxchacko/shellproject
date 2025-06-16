@@ -4,14 +4,17 @@
 #include<unistd.h>
 #include<sys/wait.h> 
 
+
 #define MAX_LINE 1024     //max length
 #define MAX_ARGS 11      //max num of space-separated tokens
 #define TOKEN_SZE 80    //token size no > 80
+#define BUFF_SIZE 1024; 
 
 //shpj = shell project (tehe) 
 
 
 void shpj_loop(void);
+
 
 
 int main() {
@@ -29,9 +32,33 @@ void shpj_loop(void) {
 
   }
 
+
 }
 
-  //gets input from user using fgets()
+=======
+////////////////////////////////////////
+//gets input from user using fgets()
+char * read_line(void) {
+  int position = 0;
+  char * buffer = malloc(sizeof(char) * BUFF_SIZE);
+  int num;
+
+  //If buffer is exceeded, throw error
+  if(!buffer){
+    fprintf(stderr, "ProjSH: allocation error\n");
+    exit(EXIT_FAILURE);
+
+  //If buffer is not empty, trim the buffer to remove the newline
+  //////
+  
+  //If buffer is empty, return null
+  if(fgets(buffer, BUFF_SIZE, stdin)==NULL){ return NULL;}
+
+  return buffer;
+}
+//////////////////////////
+
+
   //reads input 
   //check if exit command 
     //if exit... 
