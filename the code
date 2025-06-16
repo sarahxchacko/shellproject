@@ -1,1 +1,18 @@
+//headers
+//main
 
+//the while loop 
+  //gets input from user
+  //reads input 
+  //check if exit command 
+    //if exit... 
+    //else store/execute command using fgets() 
+        //parsing input via tokens
+
+//the built-in exit commands: 
+  //exit 
+  //cd 
+
+//for external commands use fork()
+  //in the child run the commands 
+//the parent wait()
