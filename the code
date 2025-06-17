@@ -40,6 +40,9 @@ void shpj_loop(void) {
 
 
 }
+
+// main function
+
 int main() {
   shpj_loop();
   return EXIT_SUCCESS;
