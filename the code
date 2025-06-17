@@ -12,41 +12,22 @@
 
 //shpj = shell project (tehe) 
 
-
-void shpj_loop(void);
-
-
-
-int main() {
-  shpj_loop();
-  return EXIT_SUCCESS;
-}
-
 void shpj_loop(void) {
   char line[MAX_LINE];
   char *args[MAX_ARGS];
 
   while(1) {
     printf("ProjSh$ ");
-     // fgets statements
-
-  }
-
-
-}
-
-=======
-////////////////////////////////////////
-//gets input from user using fgets()
-char * read_line(void) {
-  int position = 0;
-  char * buffer = malloc(sizeof(char) * BUFF_SIZE);
-  int num;
-
-  //If buffer is exceeded, throw error
-  if(!buffer){
-    fprintf(stderr, "shpj: allocation error\n");
-    exit(EXIT_FAILURE);
+    //gets input from user using fgets()
+    char * read_line(void) {
+    int position = 0;
+    char * buffer = malloc(sizeof(char) * BUFF_SIZE);
+    int num;
+    }
+    //If buffer is exceeded, throw error
+    if(!buffer){
+      fprintf(stderr, "shpj: allocation error\n");
+        exit(EXIT_FAILURE);
 
   //If buffer is not empty, trim the buffer to remove the newline
   //////
@@ -55,9 +36,14 @@ char * read_line(void) {
   if(fgets(buffer, BUFF_SIZE, stdin)==NULL){ return NULL;}
 
   return buffer;
-}
-//////////////////////////
+  }
 
+
+}
+int main() {
+  shpj_loop();
+  return EXIT_SUCCESS;
+}
 
   //reads input 
   //check if exit command 
