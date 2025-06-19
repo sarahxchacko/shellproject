@@ -13,7 +13,7 @@
 //shpj = shell project (tehe) 
 ---------------------------------------------------------------------
 
-//function to read the line: 
+//function to read line(s): 
 char *read_line(void) {
   
   char *buf = NULL;
@@ -21,7 +21,7 @@ char *read_line(void) {
   printf("ProjSh$ ");
   //fflush(stdout); //debugging purposes
 
-  if(getline(&buf, &bufsizw, stdin) == -1) {
+  if(getline(&buf, &bufsize, stdin) == -1) {
       buf = NULL;
       if (feof(stdin)) {
           printf("[End of File]\n"); }
@@ -74,7 +74,9 @@ int main(int ac, char **av) {
 
 
 
-//reads input 
+//step 2: get tokens 
+//step 3: exec (child processes)
+
   //check if exit command 
     //if exit... 
     //else store/execute
