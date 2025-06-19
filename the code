@@ -4,20 +4,53 @@
 #include<unistd.h>
 #include<sys/wait.h> 
 
-
+--------------------IGNORE FOR NOW----------------------------------
 #define MAX_LINE 1024     //max length
 #define MAX_ARGS 11      //max num of space-separated tokens
 #define TOKEN_SZE 80    //token size no > 80
 #define BUFF_SIZE 1024; 
 
 //shpj = shell project (tehe) 
+---------------------------------------------------------------------
 
-void shpj_loop(void) {
-  char line[MAX_LINE];
-  char *args[MAX_ARGS];
+//function to read the line: 
+char *read_line(void) {
+  
+  char *buf = NULL;
+  size_t bufsize = 0;
+  printf("ProjSh$ ");
+  //fflush(stdout); //debugging purposes
+
+  if(getline(&buf, &bufsizw, stdin) == -1) {
+      buf = NULL;
+      if (feof(stdin)) {
+          printf("[End of File]\n"); }
+      else { perror("getline"); }
+  free(buf);
+  return NULL;
+  }
+
+return buf;
+}
+
+int main(int ac, char **av) {
+
+  char *line;   
 
   while(1) {
-    printf("ProjSh$ ");
+    //get line
+    line = read_line(); //call to read_line() function
+      if (line == NULL) {
+        break; 
+      }
+    printf("%s\n", line); //outputs what the user typed
+    free(line);
+
+
+
+//i couldn't tell if this was to get the line or read the line, i went ahead and wrote
+//code to get a line just using a read line. lol :) 
+---------------your code:----------------------------
     //gets input from user using fgets()
     char * read_line(void) {
     int position = 0;
@@ -37,18 +70,11 @@ void shpj_loop(void) {
 
   return buffer;
   }
+--------------------------------------------------------
 
 
-}
 
-// main function
-
-int main() {
-  shpj_loop();
-  return EXIT_SUCCESS;
-}
-
-  //reads input 
+//reads input 
   //check if exit command 
     //if exit... 
     //else store/execute
@@ -62,3 +88,11 @@ int main() {
   //in the child run the commands 
 //the parent wait()
 
+}
+
+return EXIT_SUCCESS;
+}
+
+
+
+  
