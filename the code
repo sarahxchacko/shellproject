@@ -167,46 +167,7 @@ int main(int ac, char **av) {
     free(args);
     free(line);
 
-
-
-//i couldn't tell if this was to get the line or read the line, i went ahead and wrote
-//code to get a line just using a read line. lol :) 
----------------your code:----------------------------
-    //gets input from user using fgets()
-    char * read_line(void) {
-    int position = 0;
-    char * buffer = malloc(sizeof(char) * BUFF_SIZE);
-    int num;
-    }
-    //If buffer is exceeded, throw error
-    if(!buffer){
-      fprintf(stderr, "shpj: allocation error\n");
-        exit(EXIT_FAILURE);
-
-  //If buffer is not empty, trim the buffer to remove the newline
-  //////
-  
-  //If buffer is empty, return null
-  if(fgets(buffer, BUFF_SIZE, stdin)==NULL){ return NULL;}
-
-  return buffer;
-  }
---------------------------------------------------------
-
-
-
-
-//step 3: exec (child processes)
-
-  //check if exit command 
-    //if exit... 
-    //else store/execute
-        //parsing input via tokens
-
-//the built-in exit commands: 
-  //exit 
-  //cd 
-
+//step 4: forking for external commands
 //for external commands use fork()
   //in the child run the commands 
 //the parent wait()
