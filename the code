@@ -13,16 +13,9 @@
 ssize_t getline(char **lineptr, size_t *n, FILE *stream); 
 
 
---------------------IGNORE-------------------------------------------
-#define MAX_LINE 1024     //max length
-#define MAX_ARGS 11      //max num of space-separated tokens
-#define TOKEN_SZE 80    //token size no > 80
-#define BUFF_SIZE 1024; 
 
-//shpj = shell project (tehe) 
----------------------------------------------------------------------
 
-//function to read line(s): 
+//read line function __________________________________________________________________ 
 char *read_line(void) {
   
   char *buf = NULL;
@@ -42,7 +35,7 @@ char *read_line(void) {
 return buf;
 }
 
-//token function [av]
+//token function ______________________________________________________________________
 char **split_line(char *line) {
   size_t position = 0;
   size_t bufsize = BUFSIZ;
@@ -71,7 +64,53 @@ char **split_line(char *line) {
 
 }
 
-//main function
+//built-in functions: exit and cd ____________________________________________________
+typedef struct s_builtin {
+
+ const char *builtin_name;
+  int (*foo)(char **);
+}   t_builtin;
+
+//the exit built-in command
+int shpj_exit(char **args) {
+        (void)args;
+        printf("e x i t i n g :)\n");
+        fflush(stdout); //debugging
+        exit(0);
+}
+
+//global built-in functions: 
+t_builtin g_builtin[] =
+{       
+        {.builtin_name="exit", .foo = shpj_exit },
+        {NULL, NULL} //to stop the loop 
+//      {.builtin_name="cd", .foo=cd};
+//      {.builtin_name="NULL", .foo=NULL};
+
+};
+
+//exec function ______________________________________________________________________
+void exec(char **args) {
+ //is it a builtin function? call it else --> fork+execvp+wait
+ int i = 0;
+ const char *curr;
+ while((curr = g_builtin[i].builtin_name)) {
+        printf("[DEBUGGING] Checking builtin: %s\n", curr);
+        if(!strcmp(curr, args[0])) {
+                printf("[DEBUGGING] Found builtin: %s, calling function\n", curr);
+                g_builtin[i].foo(args); //calls the builin
+                printf("[DEBUGGING] Returned from builtin\n");
+                return;
+        }
+        ++i; //not a built-in
+   }
+
+//      child(args); //fork --> exec 
+        printf("[DEBUGGING] end of exec function.\n");
+}
+
+
+//main function ___________________________________________________________________________
 
 int main(int ac, char **av) {
 
@@ -92,6 +131,11 @@ int main(int ac, char **av) {
         for (int i=0; args[i]; ++i) {
                 printf("here:%s\n", args[i]);
         }
+
+//calling exec() function
+  exec(args);
+
+//free memory 
     free(args);
     free(line);
 
