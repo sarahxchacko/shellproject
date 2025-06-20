@@ -4,7 +4,16 @@
 #include<unistd.h>
 #include<sys/wait.h> 
 
---------------------IGNORE FOR NOW----------------------------------
+//uncomment if getline doesn't work on your machine: 
+//#define _GNU_SOURCE
+
+#define DEL "\n\t \v\f\r" //all types of whitespaces 
+
+//uncomment if getline doesn't work on your machine: 
+ssize_t getline(char **lineptr, size_t *n, FILE *stream); 
+
+
+--------------------IGNORE-------------------------------------------
 #define MAX_LINE 1024     //max length
 #define MAX_ARGS 11      //max num of space-separated tokens
 #define TOKEN_SZE 80    //token size no > 80
@@ -33,17 +42,57 @@ char *read_line(void) {
 return buf;
 }
 
+//token function [av]
+char **split_line(char *line) {
+  size_t position = 0;
+  size_t bufsize = BUFSIZ;
+
+  char **tokens = malloc(BUFSIZ * sizeof *tokens);
+  if (!tokens) {
+      perror("malloc");
+      exit(EXIT_FAILURE);
+
+  }
+  char *token = strtok(line, DEL);
+  while (token != NULL) {
+      tokens[position++] = token;
+          if (position >= bufsize) {
+              bufsize *= 2;
+              tokens = realloc(tokens, bufsize * sizeof(*tokens));
+              if (!tokens) {
+                  perror("realloc");
+                  exit(EXIT_FAILURE);
+              }
+          }
+          token = strtok(NULL, DEL);
+    }
+  tokens[position] = NULL; // sentinel value
+  return tokens;
+
+}
+
+//main function
+
 int main(int ac, char **av) {
 
   char *line;   
 
   while(1) {
-    //get line
+    
+//get line
     line = read_line(); //call to read_line() function
       if (line == NULL) {
         break; 
       }
     printf("%s\n", line); //outputs what the user typed
+
+//splitting for tokens
+    char **args = split_line(line);
+        //debugging purposes: 
+        for (int i=0; args[i]; ++i) {
+                printf("here:%s\n", args[i]);
+        }
+    free(args);
     free(line);
 
 
@@ -74,7 +123,7 @@ int main(int ac, char **av) {
 
 
 
-//step 2: get tokens 
+
 //step 3: exec (child processes)
 
   //check if exit command 
