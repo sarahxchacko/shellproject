@@ -78,14 +78,42 @@ int shpj_exit(char **args) {
         fflush(stdout); //debugging
         exit(0);
 }
+//the cd built-in command
+int shpj_cd(char **args) {
+        const char *new_dir = NULL;
+        //no directory given 
+        if (args[1] == NULL) {
+                new_dir = getenv("HOME");
+                if (new_dir == NULL) {
+                        fprintf(stderr, "cd: No HOME was set\n");
+                        return 1;
+                }
+        } else {
+                new_dir = args[1];
+                //use the provided path
+        }
+
+        if(chdir(new_dir) != 0) {
+                perror("cd");
+                return 1;
+        }
+//to print the current directory
+        char cwd[1024];
+        if (getcwd(cwd,sizeof(cwd)) != NULL) {
+                printf("Currently you are in directory: %s\n", cwd);
+        } else { perror("getcwd"); }
+
+        return 0;
+}
+
+
 
 //global built-in functions: 
 t_builtin g_builtin[] =
 {       
         {.builtin_name="exit", .foo = shpj_exit },
+        {.builtin_name="cd", .foo = shpj_cd};
         {NULL, NULL} //to stop the loop 
-//      {.builtin_name="cd", .foo=cd};
-//      {.builtin_name="NULL", .foo=NULL};
 
 };
 
