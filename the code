@@ -3,6 +3,8 @@
 #include<string.h> 
 #include<unistd.h>
 #include<sys/wait.h> 
+#include<sys/types.h>
+
 
 //uncomment if getline doesn't work on your machine: 
 //#define _GNU_SOURCE
@@ -119,28 +121,44 @@ t_builtin g_builtin[] =
 
 //exec function ______________________________________________________________________
 void exec(char **args) {
- //is it a builtin function? call it else --> fork+execvp+wait
+
+//no command entered
+if (args[0] == NULL)
+  return; 
+
+//for a builtin function (exit or cd)
  int i = 0;
  const char *curr;
  while((curr = g_builtin[i].builtin_name)) {
-        printf("[DEBUGGING] Checking builtin: %s\n", curr);
+                                  //printf("[DEBUGGING] Checking builtin: %s\n", curr);
         if(!strcmp(curr, args[0])) {
-                printf("[DEBUGGING] Found builtin: %s, calling function\n", curr);
+                                 //printf("[DEBUGGING] Found builtin: %s, calling function\n", curr);
                 g_builtin[i].foo(args); //calls the builin
-                printf("[DEBUGGING] Returned from builtin\n");
+                                //printf("[DEBUGGING] Returned from builtin\n");
                 return;
         }
-        ++i; //not a built-in
+        ++i;
    }
 
-//      child(args); //fork --> exec 
-        printf("[DEBUGGING] end of exec function.\n");
+//fork + execvp for non builtin commands
+pid_t pid = fork();
+if (pid < 0) {
+        perror("fork");
+} else if (pid == 0) {
+        execvp(args[0], args); //in child 
+        perror("execvp"); //error
+        exit(EXIT_FAILURE);
+} else {
+        int status;
+        waitpid(pid, &status, 0);
+        } //parent waits
+
 }
 
 
 //main function ___________________________________________________________________________
 
-int main(int ac, char **av) {
+int main(void) {
 
   char *line;   
 
@@ -157,20 +175,15 @@ int main(int ac, char **av) {
     char **args = split_line(line);
         //debugging purposes: 
         for (int i=0; args[i]; ++i) {
-                printf("here:%s\n", args[i]);
+                printf("This was your command: %s\n now watch ;)", args[i]);
         }
 
-//calling exec() function
+//calling exec() function: handles builtin and non builtin commands
   exec(args);
 
 //free memory 
     free(args);
     free(line);
-
-//step 4: forking for external commands
-//for external commands use fork()
-  //in the child run the commands 
-//the parent wait()
 
 }
 
