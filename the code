@@ -92,7 +92,6 @@ int shpj_cd(char **args) {
                 }
         } else {
                 new_dir = args[1];
-                //use the provided path
         }
 
         if(chdir(new_dir) != 0) {
