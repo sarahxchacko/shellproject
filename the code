@@ -113,7 +113,7 @@ int shpj_cd(char **args) {
 t_builtin g_builtin[] =
 {       
         {.builtin_name="exit", .foo = shpj_exit },
-        {.builtin_name="cd", .foo = shpj_cd};
+        {.builtin_name="cd", .foo = shpj_cd},
         {NULL, NULL} //to stop the loop 
 
 };
