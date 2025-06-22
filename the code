@@ -76,7 +76,7 @@ typedef struct s_builtin {
 //the exit built-in command
 int shpj_exit(char **args) {
         (void)args;
-        printf("e x i t i n g :)\n");
+        printf("g o o d b y e :)\n");
         fflush(stdout); //debugging
         exit(0);
 }
